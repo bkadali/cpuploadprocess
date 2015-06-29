@@ -25,6 +25,12 @@ RUN mvn package
 
 RUN ls
 
+RUN cd target
+
+RUN ls
+
+RUN cd ..
+
 RUN bash -c 'touch target/cpuploadprocess-0.1.0.jar
 
 CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/cpuploadprocess-0.1.0.jar"]
