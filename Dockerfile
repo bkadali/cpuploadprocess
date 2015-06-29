@@ -23,8 +23,8 @@ WORKDIR /app/
 
 RUN mvn package
 
-ADD target/cpuploadprocess*.jar app.jar
+RUN ls
 
-RUN bash -c 'touch /app.jar
+RUN bash -c 'touch target/cpuploadprocess-0.1.0.jar
 
-CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/cpuploadprocess-0.1.0.jar"]
