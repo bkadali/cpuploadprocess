@@ -25,7 +25,7 @@ RUN mvn package
 
 RUN ls
 
-RUN cd target
+WORKDIR /app/target/
 
 RUN ls
 
