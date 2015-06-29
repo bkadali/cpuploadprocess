@@ -23,6 +23,8 @@ WORKDIR /app/
 
 RUN mvn package
 
-EXPOSE  8080
+ADD /app/target/cpupload*.jar app.jar
 
-CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/spring-boot-sample-tomcat-1.1.5.RELEASE.jar"]
+RUN bash -c 'touch /app.jar
+
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
