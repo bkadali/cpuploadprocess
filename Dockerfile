@@ -23,7 +23,7 @@ WORKDIR /app/
 
 RUN mvn package
 
-ADD /app/target/cpupload*.jar app.jar
+ADD target/cpuploadprocess*.jar app.jar
 
 RUN bash -c 'touch /app.jar
 
