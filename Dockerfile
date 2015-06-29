@@ -27,10 +27,6 @@ RUN ls
 
 WORKDIR /app/target/
 
-RUN ls
+RUN bash -c 'touch cpuploadprocess-0.1.0.jar
 
-RUN cd ..
-
-RUN bash -c 'touch target/cpuploadprocess-0.1.0.jar
-
-CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/cpuploadprocess-0.1.0.jar"]
+CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","cpuploadprocess-0.1.0.jar"]
