@@ -27,6 +27,7 @@ public class FileUploadController {
             @RequestParam("file") MultipartFile file){
         if (!file.isEmpty()) {
             try {
+            	System.out.println("found file");
                 byte[] bytes = file.getBytes();
                 BufferedOutputStream stream = 
                         new BufferedOutputStream(new FileOutputStream(new File(name)));
