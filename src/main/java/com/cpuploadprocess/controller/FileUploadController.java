@@ -19,8 +19,8 @@ import com.cpuploadprocess.model.CouponDetails;
 @Controller
 public class FileUploadController {
 	
-	//@Autowired
-	//MyDao dao;
+	@Autowired
+	MyDao dao;
 	
     
     @RequestMapping(value="/upload", method=RequestMethod.GET)
@@ -48,10 +48,10 @@ public class FileUploadController {
                 cp.setCouponType(agentName);
                 cp.setMerchant(companyName);
                 
-               // dao.create(cp);
+                dao.create(cp);
                 stream.close();
                 
-                //dao.getCouponDetails("60008");
+                dao.getCouponDetails("60008");
                 
                 
                 return "You successfully uploaded " + name + "!";
