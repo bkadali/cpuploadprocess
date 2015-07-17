@@ -33,6 +33,7 @@ public class FileUploadController {
     		@RequestParam("businessType") String agentName,
     		@RequestParam("address") String address,
     		@RequestParam("zipCode") String zipCode,
+    		@RequestParam("expireDate") String expireDate,
     		@RequestParam("name") String name, 
             @RequestParam("file") MultipartFile file){
         if (!file.isEmpty()) {
@@ -48,10 +49,10 @@ public class FileUploadController {
                 cp.setCouponType(agentName);
                 cp.setMerchant(companyName);
                 
-                dao.create(cp);
+                //dao.create(cp);
                 stream.close();
                 
-                dao.getCouponDetails("60008");
+                //dao.getCouponDetails("60008");
                 
                 
                 return "You successfully uploaded " + name + "!";
@@ -62,5 +63,4 @@ public class FileUploadController {
             return "You failed to upload " + name + " because the file was empty.";
         }
     }
-
 }

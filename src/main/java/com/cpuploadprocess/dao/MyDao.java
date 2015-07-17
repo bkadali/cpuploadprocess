@@ -18,7 +18,7 @@ public class MyDao {
    public void create(CouponDetails cp) {
 	      String SQL = "insert into CouponData (couponID,merchant,couponType,address,zipcode,lng,lat) values (?, ?,?,?,?,?,?)";
 	      
-	    // jdbcTemplate.update( SQL, cp.getCouponId(), cp.getMerchant(),cp.getCouponType(), cp.getAddress(),cp.getZipcode(), cp.getLng(), cp.getLat());
+	     jdbcTemplate.update( SQL, cp.getCouponId(), cp.getMerchant(),cp.getCouponType(), cp.getAddress(),cp.getZipcode(), cp.getLng(), cp.getLat());
 
 	      return;
 	   }
