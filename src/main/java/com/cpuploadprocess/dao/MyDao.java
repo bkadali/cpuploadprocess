@@ -23,8 +23,8 @@ public class MyDao {
 	      return;
 	   }
 
-	   public CouponDetails getCouponDetails(String zipCode) {
-	      String SQL = "select * from CouponData where zipcode = ?";
+	   public CouponDetails getCouponDetails(String zipCode, String businessType) {
+	      String SQL = "select * from CouponData where zipcode = ? and businessType= ?";
 	      //CouponDetails student = jdbcTemplate.queryForObject(SQL, 
 	       //                 new Object[]{}, new CouponMapper());
 	      return null;

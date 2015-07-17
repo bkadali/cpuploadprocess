@@ -20,16 +20,23 @@ public class RetreiveCoupon {
 	@Autowired
 	MyDao dao;
 
-	@RequestMapping(value = "/dyn/{name}", method = RequestMethod.GET)
-	public CouponDetails getGreeting(@PathVariable String name) {
-		dao.getCouponDetails(name);
-		return dao.getCouponDetails(name);
+	@RequestMapping(value = "/coupon/{businessType}/{zipcode}", method = RequestMethod.GET)
+	public CouponDetails getCoupon(@PathVariable String businessType, @PathVariable String zipcode) {
+		//dao.getCouponDetails(zipcode, businessType);
+		CouponDetails dtls = new CouponDetails();
+		dtls.setAddress("123 test");
+		dtls.setCouponType("Restuarent");
+		dtls.setZipcode("60008");
+		dtls.setLat("-88.042236");
+		dtls.setLng("42.050123");
+		
+		return dtls;
 	}
 	
 	
 	@RequestMapping(value = "/ret/data", method = RequestMethod.GET)
 	public CouponDetails getDataDtls(@RequestParam(value="test") String test) {
-		dao.getCouponDetails(test);
-		return dao.getCouponDetails(test);
+		//dao.getCouponDetails(test);
+		return null;//dao.getCouponDetails(test);
 	}
 }
