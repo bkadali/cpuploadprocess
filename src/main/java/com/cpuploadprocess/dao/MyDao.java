@@ -1,26 +1,33 @@
 package com.cpuploadprocess.dao;
 
-import java.util.UUID;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.cpuploadprocess.model.CouponDetails;
+import com.cpuploadprocess.model.CouponMapper;
+
 @Repository
 public class MyDao {
 
-   private JdbcTemplate jdbcTemplate;
+	@Autowired
+    JdbcTemplate jdbcTemplate;
+   
+   public void create(CouponDetails cp) {
+	      String SQL = "insert into CouponData (couponID,merchant,couponType,address,zipcode,lng,lat) values (?, ?,?,?,?,?,?)";
+	      
+	     // jdbcTemplate.update( SQL, cp.getCouponId(), cp.getMerchant(),cp.getCouponType(), cp.getAddress(),cp.getZipcode(), cp.getLng(), cp.getLat());
 
-   @Autowired
-   public void setDataSource(DataSource dataSource) {
-       this.jdbcTemplate = new JdbcTemplate(dataSource);
-   }
+	      return;
+	   }
 
-   public UUID getId() {
-      String sql = "SELECT id FROM my_schema.my_table WHERE my_ip_address=inet('10.1.1.1')";
-       UUID id = jdbcTemplate.queryForObject(sql, UUID.class);
-      return id;
-   }
+	   public CouponDetails getCouponDetails(String zipCode) {
+	      String SQL = "select * from CouponData where zipcode = ?";
+	      //CouponDetails student = jdbcTemplate.queryForObject(SQL, 
+	       //                 new Object[]{}, new CouponMapper());
+	      return null;
+	   }
+
 }
