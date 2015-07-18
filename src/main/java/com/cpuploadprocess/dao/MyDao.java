@@ -34,7 +34,7 @@ public class MyDao {
 
 	public List<CouponDetails> getCouponDetails(String zipCode,
 			String businessType) {
-		String SQL = "select * from CPUPLOAD.CouponData where zipcode = '60008'";// and
+		String SQL = "select * from CPUPLOAD.CouponData where zipcode = '"+zipCode+"'";// and
 																					// businessType=
 																					// ?";
 
@@ -56,4 +56,9 @@ public class MyDao {
 		return cdList;
 	}
 
+	
+	public void redemCalculation(String customerEmail, String businessType, String coupon) {
+		
+	}
+	
 }

@@ -1,5 +1,7 @@
 package com.cpuploadprocess.services;
 
+import java.util.List;
+
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +23,11 @@ public class RetreiveCoupon {
 	MyDao dao;
 
 	@RequestMapping(value = "/coupon/{businessType}/{zipcode}", method = RequestMethod.GET)
-	public CouponDetails getCoupon(@PathVariable String businessType, @PathVariable String zipcode) {
-		//dao.getCouponDetails(zipcode, businessType);
-		CouponDetails dtls = new CouponDetails();
-		dtls.setAddress("123 test");
-		dtls.setCouponType("Restuarent");
-		dtls.setZipcode("60008");
-		dtls.setLat("-88.042236");
-		dtls.setLng("42.050123");
+	public List<CouponDetails> getCoupon(@PathVariable String businessType, @PathVariable String zipcode) {
+		
+		List<CouponDetails> dtls = dao.getCouponDetails(zipcode, businessType);;
+		
 		
 		return dtls;
-	}
-	
-	
-	@RequestMapping(value = "/ret/data", method = RequestMethod.GET)
-	public CouponDetails getDataDtls(@RequestParam(value="test") String test) {
-		//dao.getCouponDetails(test);
-		return null;//dao.getCouponDetails(test);
 	}
 }
