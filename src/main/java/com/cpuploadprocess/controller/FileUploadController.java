@@ -44,6 +44,9 @@ public class FileUploadController {
                         new BufferedOutputStream(new FileOutputStream(new File(name)));
                 stream.write(bytes);
                 CouponDetails cp = new CouponDetails();
+                cp.setCouponId("212");
+                cp.setLat("1111");
+                cp.setLng("343");
                 cp.setAddress(address);
                 cp.setZipcode(zipCode);
                 cp.setCouponType(agentName);
@@ -52,7 +55,7 @@ public class FileUploadController {
                 dao.create(cp);
                 stream.close();
                 
-                //dao.getCouponDetails("60008");
+                dao.getCouponDetails("60008", "erte");
                 
                 
                 return "You successfully uploaded " + name + "!";
