@@ -49,7 +49,7 @@ public class FileUploadController {
                 cp.setCouponType(agentName);
                 cp.setMerchant(companyName);
                 
-                //dao.create(cp);
+                dao.create(cp);
                 stream.close();
                 
                 //dao.getCouponDetails("60008");
