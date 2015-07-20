@@ -20,11 +20,11 @@ public class MyDao {
 	JdbcTemplate jdbcTemplate;
 
 	public void create(CouponDetails cp) {
-		String SQL = "insert into CPUPLOAD.CouponData (Merchant,BussinessType,Address,zipcode,longitude,lat) values (?,?,?,?,?,?)";
+		String SQL = "insert into CPUPLOAD.CouponData (Merchant,BussinessType,Address,zipcode,longitude,lat, couponInfo) values (?,?,?,?,?,?,?)";
 
 		try {
 			jdbcTemplate.update(SQL, cp.getMerchant(), cp.getCouponType(),
-					cp.getAddress(), cp.getZipcode(), cp.getLng(), cp.getLat());
+					cp.getAddress(), cp.getZipcode(), cp.getLng(), cp.getLat(), cp.getCouponInfo());
 		} catch (Exception e) {
 			System.out.println("test" + e.getMessage());
 			e.printStackTrace();

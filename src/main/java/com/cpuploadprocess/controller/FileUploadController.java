@@ -33,6 +33,7 @@ public class FileUploadController {
     		@RequestParam("businessType") String agentName,
     		@RequestParam("address") String address,
     		@RequestParam("zipCode") String zipCode,
+    		@RequestParam("couponInfo") String couponInfo,
     		@RequestParam("expireDate") String expireDate,
     		@RequestParam("name") String name, 
             @RequestParam("file") MultipartFile file){
@@ -51,6 +52,7 @@ public class FileUploadController {
                 cp.setZipcode(zipCode);
                 cp.setCouponType(agentName);
                 cp.setMerchant(companyName);
+                cp.setCouponInfo(couponInfo);
                 
                 dao.create(cp);
                 stream.close();
