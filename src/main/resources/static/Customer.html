@@ -1,6 +1,35 @@
 <html>
-<body>
-	<form method="POST" enctype="multipart/form-data" action="/customer">
+<head>
+<script>
+function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}
+
+function setHiddenFieldValue()
+{
+	
+	frmElement = document.forms[0].elements['referalId'];
+	var custId = GetURLParameter('referalId');
+	alert("referalId is "+custId);
+	frmElement.value = custId;
+}
+
+
+</script>
+</head>
+<body onload="setHiddenFieldValue()">
+
+	<form method="POST" id="custform" enctype="multipart/form-data" action="/customer" >
 		<table>
 			<tr>
 				<td><br /> <img src="images/C1.jpg" alt="C1" height="100"
@@ -8,7 +37,7 @@
 			</tr>
 			<tr>
 				<td><br /> Customer Name: <input type="text"
-					name="customerName"> <br /></td>
+					name="customerName" > <br /></td>
 			</tr>
 
 			<tr>
@@ -34,12 +63,13 @@
 			<tr>
 				<td><br /> <input type="submit" value="Submit"></td>
 			</tr>
-
+			
+			
 		</table>
 
 
 
-
+				<input type = "hidden" name = "referalId"  />
 
 	</form>
 </body>

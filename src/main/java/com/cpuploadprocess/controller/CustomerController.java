@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cpuploadprocess.dao.MyDao;
 import com.cpuploadprocess.model.CouponDetails;
+import com.cpuploadprocess.model.CustomerDetails;
 
 @Controller
 public class CustomerController {
@@ -35,12 +36,21 @@ public class CustomerController {
     		@RequestParam("address") String address,
     		@RequestParam("zipCode") String zipCode,
     		@RequestParam("phoneNumber") String phoneNumber,
-    		@RequestParam("email") String email){
+    		@RequestParam("email") String email,
+    		@RequestParam("referalId") String referalId){
         if (!customerName.isEmpty()) {
             try {
             	System.out.println("found file");
-               
-                
+               System.out.println(" customer name is "+customerName);
+               System.out.println(" customer id is "+referalId);
+                CustomerDetails custdetails = new CustomerDetails();
+                custdetails.setAddress(address);
+                custdetails.setCustomerName(customerName);
+                custdetails.setZipcode(zipCode);
+                custdetails.setPhone(phoneNumber);
+                custdetails.setEmail(email);
+                custdetails.setReferalId(referalId);
+                dao.save(custdetails);
                 //dao.getCouponDetails("60008");
                 
                 

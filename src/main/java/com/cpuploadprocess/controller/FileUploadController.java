@@ -39,7 +39,7 @@ public class FileUploadController {
             @RequestParam("file") MultipartFile file){
         if (!file.isEmpty()) {
             try {
-            	System.out.println("found file");
+            	System.out.println("found file" + file.getBytes());
                 byte[] bytes = file.getBytes();
                 BufferedOutputStream stream = 
                         new BufferedOutputStream(new FileOutputStream(new File(name)));
@@ -53,8 +53,9 @@ public class FileUploadController {
                 cp.setCouponType(agentName);
                 cp.setMerchant(companyName);
                 cp.setCouponInfo(couponInfo);
+                cp.setImage(bytes);
                 
-                dao.create(cp);
+                dao.save(cp);
                 stream.close();
                 
                 dao.getCouponDetails("60008", "erte");

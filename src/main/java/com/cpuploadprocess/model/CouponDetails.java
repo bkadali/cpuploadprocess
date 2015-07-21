@@ -12,15 +12,9 @@ public class CouponDetails {
 	private String lat;
 	private String lng;
 	private String couponInfo;
-	private Blob image;
+	private byte[] image;
 
-	public Blob getImage() {
-		return image;
-	}
-
-	public void setImage(Blob image) {
-		this.image = image;
-	}
+	
 
 	public String getCouponInfo() {
 		return couponInfo;
@@ -84,6 +78,14 @@ public class CouponDetails {
 
 	public void setLng(String lng) {
 		this.lng = lng;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 }

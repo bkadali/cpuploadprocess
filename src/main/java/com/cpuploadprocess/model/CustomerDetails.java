@@ -7,6 +7,8 @@ public class CustomerDetails {
 	private String address;
 	private String zipcode;
 	private String phone;
+	private String referalId;
+	private String subreferalId;
 	
 	public String getEmail() {
 		return email;
@@ -37,6 +39,18 @@ public class CustomerDetails {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public String getReferalId() {
+		return referalId;
+	}
+	public void setReferalId(String referalId) {
+		this.referalId = referalId;
+	}
+	public String getSubreferalId() {
+		return subreferalId;
+	}
+	public void setSubreferalId(String subreferalId) {
+		this.subreferalId = subreferalId;
 	}
 	
 	
