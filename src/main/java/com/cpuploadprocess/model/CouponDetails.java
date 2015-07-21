@@ -13,6 +13,8 @@ public class CouponDetails {
 	private String lng;
 	private String couponInfo;
 	private byte[] image;
+	private String facevalue;
+	private String discount;
 
 	
 
@@ -86,6 +88,22 @@ public class CouponDetails {
 
 	public void setImage(byte[] image) {
 		this.image = image;
+	}
+
+	public String getFacevalue() {
+		return facevalue;
+	}
+
+	public void setFacevalue(String facevalue) {
+		this.facevalue = facevalue;
+	}
+
+	public String getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(String discount) {
+		this.discount = discount;
 	}
 
 }

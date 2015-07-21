@@ -36,6 +36,8 @@ public class FileUploadController {
     		@RequestParam("couponInfo") String couponInfo,
     		@RequestParam("expireDate") String expireDate,
     		@RequestParam("name") String name, 
+    		@RequestParam("facevalue") String facevalue,
+    		@RequestParam("discount") String discount,
             @RequestParam("file") MultipartFile file){
         if (!file.isEmpty()) {
             try {
@@ -54,7 +56,8 @@ public class FileUploadController {
                 cp.setMerchant(companyName);
                 cp.setCouponInfo(couponInfo);
                 cp.setImage(bytes);
-                
+                cp.setDiscount(discount);
+                cp.setFacevalue(facevalue);
                 dao.save(cp);
                 stream.close();
                 

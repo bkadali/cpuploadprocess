@@ -19,10 +19,17 @@ public class RedemServices {
 	/*
 	 * method to calculate redeem operation
 	 */
-	@RequestMapping(value = "/coupon/{businessType}/{name}", method = RequestMethod.GET)
-	public void redeemCoupon(@PathVariable String businessType,
-			@PathVariable String name) {
-		dao.redemCalculation("", businessType, name);
+	@RequestMapping(value = "/coupon/{couponid}/{email:.+}", method = RequestMethod.GET)
+	public void redeemCoupon(@PathVariable String couponid,
+			@PathVariable String email) {
+		//dao.redemCalculation("", businessType, name);
+		System.out.println(" Redeeming Coupon with id "+couponid+" for customer with email "+email);
+		dao.redeemCoupon(new Integer(couponid), email);
+		//get coupon face value...maxfacevalue - discount
+		// get customer e-mail .. set it to 3% of(maxfacevalue - discount) for first user
+		// get directrefer1 e-mail... set 
+		
+		
 	}
 
 }

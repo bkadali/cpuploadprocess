@@ -20,7 +20,6 @@ import org.springframework.stereotype.Repository;
 import com.cpuploadprocess.model.CouponDetails;
 import com.cpuploadprocess.model.CouponMapper;
 import com.cpuploadprocess.model.CustomerDetails;
-import com.mysql.jdbc.PreparedStatement;
 
 @Repository
 public class MyDao {
@@ -48,7 +47,7 @@ public class MyDao {
      * save
      */
     public void save(final CouponDetails cp) {
-    	final String SQL = "insert into CPUPLOAD.CouponData (Merchant,BussinessType,Address,zipcode,longitude,lat, couponInfo,couponimage) values (?,?,?,?,?,?,?,?)";
+    	final String SQL = "insert into CPUPLOAD.CouponData (Merchant,BussinessType,Address,zipcode,longitude,lat, couponInfo,couponimage,discount,maxfacevalue) values (?,?,?,?,?,?,?,?,?,?)";
 
         try {
             synchronized(this) {
@@ -64,6 +63,9 @@ public class MyDao {
                         statement.setString(6, cp.getLat());
                         statement.setString(7,cp.getCouponInfo());
                         statement.setBytes(8, cp.getImage());
+                        statement.setString(9, cp.getDiscount());
+                        statement.setString(10,cp.getFacevalue());
+                        
 
                         
                         return statement;
@@ -110,6 +112,28 @@ public class MyDao {
         }
     }
  
+    public void redeemCoupon(Integer couponId, String email)
+    {
+    	final String Sql = "select maxfacevalue - (maxfacevalue*discount/100) as redeemable from "+
+    						" CouponData where CouponID = ? "; //13
+    	
+    	Map<String,Object> answer = jdbcTemplate.queryForMap(Sql,new Object[]{couponId});
+    	System.out.println(" answer is "+answer);
+    	Double redeemablevalue = new Double(answer.get("redeemable").toString());
+    	System.out.println("Redeemable value is "+redeemablevalue);
+    	String subquery = "(select col1 from( select coalesce(rewardsamount,0) as col1 from Customer where CustomerEmail = ?) as subquery ) ";
+    	//update main customer
+    	final String sqlCustomer = " update Customer set rewardsamount = coalesce(rewardsamount,0) +? where CustomerEmail = ? ";
+    	int numrowsupdate=jdbcTemplate.update(sqlCustomer,new Object[]{redeemablevalue*0.03,email});
+    	System.out.println(" NUmber of rows udpated "+ numrowsupdate+ " with valud "+redeemablevalue*0.03);
+    	final String sqlRef1Customer = " update Customer set rewardsamount =  coalesce(rewardsamount,0) + ? where CustomerEmail = (Select col1 from (select directReferal1 as col1 from Customer where CustomerEmail = ?) as subquery)";
+    	 numrowsupdate = jdbcTemplate.update(sqlRef1Customer,new Object[]{redeemablevalue*0.02,email});
+    	System.out.println(" NUmber of rows udpated "+ numrowsupdate+ " with valud "+redeemablevalue*0.02);
+
+    	final String sqlRef2Customer = " update Customer set rewardsamount = coalesce(rewardsamount,0) +? where CustomerEmail = (Select col1 from (select directReferal2 as col1 from Customer where CustomerEmail = ?) as subquery)";
+    	jdbcTemplate.update(sqlRef2Customer,new Object[]{redeemablevalue*0.01,email});
+
+    }
  
 	public List<CouponDetails> getCouponDetails(String zipCode,
 			String businessType) {
