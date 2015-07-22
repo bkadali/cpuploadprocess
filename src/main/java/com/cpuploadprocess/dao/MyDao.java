@@ -187,8 +187,8 @@ public class MyDao {
 			cd.setLat((String) row.get("lat"));
 			cd.setImage((byte[]) row.get("couponimage"));
 			cd.setCouponInfo((String) row.get("couponInfo"));
-			cd.setDiscount(new Integer((Integer) row.get("discount")).toString());
-			cd.setFacevalue(new Integer((Integer) row.get("maxfacevalue")).toString());
+			cd.setDiscount(new Integer((Integer) (row.get("discount")== null ? Integer.valueOf(0): row.get("discount"))).toString());
+			cd.setFacevalue(new Integer((Integer) (row.get("maxfacevalue") == null ? Integer.valueOf(0): row.get("maxfacevalue"))).toString());
 			cdList.add(cd);
 		}
 

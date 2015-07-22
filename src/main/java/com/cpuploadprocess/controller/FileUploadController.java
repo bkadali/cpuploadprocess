@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cpuploadprocess.dao.MyDao;
 import com.cpuploadprocess.model.CouponDetails;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.model.GeocodingResult;
 
 @Controller
 public class FileUploadController {
@@ -48,8 +51,6 @@ public class FileUploadController {
                 stream.write(bytes);
                 CouponDetails cp = new CouponDetails();
                 cp.setCouponId("212");
-                cp.setLat("1111");
-                cp.setLng("343");
                 cp.setAddress(address);
                 cp.setZipcode(zipCode);
                 cp.setCouponType(agentName);
@@ -58,9 +59,17 @@ public class FileUploadController {
                 cp.setImage(bytes);
                 cp.setDiscount(discount);
                 cp.setFacevalue(facevalue);
-                dao.save(cp);
+               
                 stream.close();
-                
+                System.out.println("Calling google api");
+                GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyD7-9GYJ3UEnRkEHaK3DNdrDY5zgpQiYW4");
+                GeocodingResult[] results =  GeocodingApi.geocode(context,
+                   cp.getAddress()+ ", "+cp.getZipcode()).await();
+                System.out.println("Got the results Latititue  " + results[0].geometry.location.lat);
+                System.out.println("Got the results Longitude " + results[0].geometry.location.lng);
+                cp.setLat(Double.toString(results[0].geometry.location.lat));
+                cp.setLng(Double.toString(results[0].geometry.location.lng));
+                dao.save(cp);
                 dao.getCouponDetails("60008", "erte");
                 
                 
