@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cpuploadprocess.dao.MyDao;
 import com.cpuploadprocess.model.CouponDetails;
+import com.cpuploadprocess.model.Rewards;
 
 @RestController
 @RequestMapping("/rewards")
@@ -26,6 +27,16 @@ public class UserRewardServices {
 			@PathVariable String name) {
 		dao.calculatedReward(name);
 		return null;
+	}
+	
+	/*
+	 * method to calculate redeem operation
+	 */
+	@RequestMapping(value = "/totalrewards/{name:.+}", method = RequestMethod.GET)
+	public Rewards getTotalRewards(
+			@PathVariable String name) {
+		return dao.calculatedReward(name);
+		
 	}
 
 }

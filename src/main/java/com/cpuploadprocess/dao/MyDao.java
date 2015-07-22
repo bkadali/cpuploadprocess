@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import com.cpuploadprocess.model.CouponDetails;
 import com.cpuploadprocess.model.CouponMapper;
 import com.cpuploadprocess.model.CustomerDetails;
+import com.cpuploadprocess.model.Rewards;
 
 @Repository
 public class MyDao {
@@ -126,11 +127,11 @@ public class MyDao {
     	final String sqlCustomer = " update Customer set rewardsamount = coalesce(rewardsamount,0) +? where CustomerEmail = ? ";
     	int numrowsupdate=jdbcTemplate.update(sqlCustomer,new Object[]{redeemablevalue*0.03,email});
     	System.out.println(" NUmber of rows udpated "+ numrowsupdate+ " with valud "+redeemablevalue*0.03);
-    	final String sqlRef1Customer = " update Customer set rewardsamount =  coalesce(rewardsamount,0) + ? where CustomerEmail = (Select col1 from (select directReferal1 as col1 from Customer where CustomerEmail = ?) as subquery)";
+    	final String sqlRef1Customer = " update Customer set directrefamount =  coalesce(directrefamount,0) + ? where CustomerEmail = (Select col1 from (select directReferal1 as col1 from Customer where CustomerEmail = ?) as subquery)";
     	 numrowsupdate = jdbcTemplate.update(sqlRef1Customer,new Object[]{redeemablevalue*0.02,email});
     	System.out.println(" NUmber of rows udpated "+ numrowsupdate+ " with valud "+redeemablevalue*0.02);
 
-    	final String sqlRef2Customer = " update Customer set rewardsamount = coalesce(rewardsamount,0) +? where CustomerEmail = (Select col1 from (select directReferal2 as col1 from Customer where CustomerEmail = ?) as subquery)";
+    	final String sqlRef2Customer = " update Customer set subrefamount = coalesce(subrefamount,0) +? where CustomerEmail = (Select col1 from (select directReferal2 as col1 from Customer where CustomerEmail = ?) as subquery)";
     	jdbcTemplate.update(sqlRef2Customer,new Object[]{redeemablevalue*0.01,email});
 
     }
@@ -165,7 +166,7 @@ public class MyDao {
 		
 	}
 	
-	public List<CouponDetails> getCouponImage(String couponID) {
+	public List<CouponDetails> getCouponDetails(String couponID) {
 		String SQL = "select * from CPUPLOAD.CouponData where couponId = '"
 				+ couponID + "'";// and
 		// businessType=
@@ -176,22 +177,34 @@ public class MyDao {
 		for (Map row : rows) {
 			CouponDetails cd = new CouponDetails();
 			cd.setCouponId(String.valueOf(row.get("CouponId")));
+			cd.setCouponType((String) row.get("BussinessType"));
 			// employee.setName((String)row.get("NAME"));
 			// employee.setAge(Integer.parseInt(String.valueOf(row.get("AGE"))));
 			cd.setMerchant((String) row.get("Merchant"));
-			cd.setAddress((String) row.get("Adress"));
+			cd.setAddress((String) row.get("Address"));
 			cd.setZipcode((String) row.get("zipcode"));
 			cd.setLng((String) row.get("longitude"));
 			cd.setLat((String) row.get("lat"));
 			cd.setImage((byte[]) row.get("couponimage"));
+			cd.setCouponInfo((String) row.get("couponInfo"));
+			cd.setDiscount(new Integer((Integer) row.get("discount")).toString());
+			cd.setFacevalue(new Integer((Integer) row.get("maxfacevalue")).toString());
 			cdList.add(cd);
 		}
 
 		return cdList;
 	}
 	
-	public void calculatedReward(String customerEmail) {
+	public Rewards calculatedReward(String customerEmail) {
 
+		final String sql  = "select rewardsamount,directrefamount,subrefamount from Customer where CustomerEmail = ?";
+		Map<String, Object> answer =  jdbcTemplate.queryForMap(sql,new Object[]{customerEmail});
+		Rewards rewards = new Rewards();
+		rewards.setRewardsAmount(Double.parseDouble(answer.get("rewardsamount").toString()));
+		rewards.setDirectReferalRewards(Double.parseDouble(answer.get("directrefamount").toString()));
+		rewards.setSubrefRewards(Double.parseDouble(answer.get("subrefamount").toString()));
+		
+		return rewards;
 	}
 	
 }

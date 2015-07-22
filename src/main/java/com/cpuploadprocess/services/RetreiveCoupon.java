@@ -39,13 +39,25 @@ public class RetreiveCoupon {
 	}
 	
 	/*
+	 * Method to get coupon details
+	 * http://localhost:8080/coupon/image/grocery/5645645
+	 */
+	@RequestMapping(value = "/coupon/{couponid}", method = RequestMethod.GET)
+	public CouponDetails getCouponById(@PathVariable String couponid) {
+		System.out.println(" coupon GET for ID: "+ couponid);
+		List<CouponDetails> dtls = dao.getCouponDetails(couponid);
+		
+		return dtls.get(0);
+	}
+	
+	/*
 	 * Method to get coupon image
 	 * http://localhost:8080/retreive/image/grocery/5645645
 	 */
 	@RequestMapping(value = "/image/{businessType}/{couponId}", method = RequestMethod.GET)
 	public void getImage(@PathVariable String businessType, @PathVariable String couponId,HttpServletResponse response,HttpServletRequest request) {
 		System.out.println(" coupon GET for "+ couponId+" for business type "+businessType);
-		List<CouponDetails> dtls = dao.getCouponImage(couponId);
+		List<CouponDetails> dtls = dao.getCouponDetails(couponId);
 		 response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 		    try {
 				response.getOutputStream().write(dtls.get(0).getImage());
