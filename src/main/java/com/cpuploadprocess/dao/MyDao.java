@@ -165,4 +165,33 @@ public class MyDao {
 		
 	}
 	
+	public List<CouponDetails> getCouponImage(String couponID) {
+		String SQL = "select * from CPUPLOAD.CouponData where couponId = '"
+				+ couponID + "'";// and
+		// businessType=
+		// ?";
+
+		List<CouponDetails> cdList = new ArrayList<CouponDetails>();
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL);
+		for (Map row : rows) {
+			CouponDetails cd = new CouponDetails();
+			cd.setCouponId(String.valueOf(row.get("CouponId")));
+			// employee.setName((String)row.get("NAME"));
+			// employee.setAge(Integer.parseInt(String.valueOf(row.get("AGE"))));
+			cd.setMerchant((String) row.get("Merchant"));
+			cd.setAddress((String) row.get("Adress"));
+			cd.setZipcode((String) row.get("zipcode"));
+			cd.setLng((String) row.get("longitude"));
+			cd.setLat((String) row.get("lat"));
+			cd.setImage((byte[]) row.get("couponimage"));
+			cdList.add(cd);
+		}
+
+		return cdList;
+	}
+	
+	public void calculatedReward(String customerEmail) {
+
+	}
+	
 }

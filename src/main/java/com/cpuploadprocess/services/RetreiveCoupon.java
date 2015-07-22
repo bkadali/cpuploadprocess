@@ -42,10 +42,10 @@ public class RetreiveCoupon {
 	 * Method to get coupon image
 	 * http://localhost:8080/retreive/image/grocery/5645645
 	 */
-	@RequestMapping(value = "/image/{businessType}/{zipcode}", method = RequestMethod.GET)
-	public void getImage(@PathVariable String businessType, @PathVariable String zipcode,HttpServletResponse response,HttpServletRequest request) {
-		System.out.println(" coupon GET for "+ zipcode+" for business type "+businessType);
-		List<CouponDetails> dtls = dao.getCouponDetails(zipcode, businessType);
+	@RequestMapping(value = "/image/{businessType}/{couponId}", method = RequestMethod.GET)
+	public void getImage(@PathVariable String businessType, @PathVariable String couponId,HttpServletResponse response,HttpServletRequest request) {
+		System.out.println(" coupon GET for "+ couponId+" for business type "+businessType);
+		List<CouponDetails> dtls = dao.getCouponImage(couponId);
 		 response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 		    try {
 				response.getOutputStream().write(dtls.get(0).getImage());
