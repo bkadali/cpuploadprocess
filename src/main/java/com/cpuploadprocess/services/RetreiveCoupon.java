@@ -28,7 +28,7 @@ public class RetreiveCoupon {
 
 	/*
 	 * Method to get coupon details
-	 * http://localhost:8080/coupon/image/grocery/5645645
+	 * http://localhost:8080/retreive/coupon/grocery/60008
 	 */
 	@RequestMapping(value = "/coupon/{businessType}/{zipcode}", method = RequestMethod.GET)
 	public List<CouponDetails> getCoupon(@PathVariable String businessType, @PathVariable String zipcode) {
