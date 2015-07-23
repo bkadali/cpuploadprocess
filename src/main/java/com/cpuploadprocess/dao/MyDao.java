@@ -155,6 +155,7 @@ public class MyDao {
 			cd.setLng((String) row.get("longitude"));
 			cd.setLat((String) row.get("lat"));
 			cd.setImage((byte[]) row.get("couponimage"));
+			cd.setCouponInfo((String) row.get("couponInfo"));
 			cdList.add(cd);
 		}
 
