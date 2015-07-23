@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.Log;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -16,6 +18,8 @@ import org.springframework.jdbc.core.support.SqlLobValue;
 import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.stereotype.Repository;
+
+import ch.qos.logback.classic.Logger;
 
 import com.cpuploadprocess.model.CouponDetails;
 import com.cpuploadprocess.model.CouponMapper;
@@ -112,7 +116,8 @@ public class MyDao {
             ex.printStackTrace();
         }
     }
- 
+
+static final org.slf4j.Logger LOG = LoggerFactory.getLogger(MyDao.class);
     public void redeemCoupon(Integer couponId, String email)
     {
     	final String Sql = "select maxfacevalue - (maxfacevalue*discount/100) as redeemable from "+
@@ -151,6 +156,8 @@ public class MyDao {
 	}
 	
 	public List<CouponDetails> getCouponDetails(String couponID) {
+		LOG.debug("Logginng in the mydao...");
+		System.out.println(" LOg should have got printed...");
 		String SQL = "select * from CPUPLOAD.CouponData where couponId = '"
 				+ couponID + "'";// and
 		// businessType=
