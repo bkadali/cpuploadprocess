@@ -193,7 +193,7 @@ static final org.slf4j.Logger LOG = LoggerFactory.getLogger(MyDao.class);
 	
 	public Rewards calculatedReward(String customerEmail) {
 
-		final String sql  = "select coalesce(rewardsamount) as rewardsamount, coalesce(directrefamount) as directrefamount, coalesce(subrefamount) as subrefamount from Customer where CustomerEmail = ?";
+		final String sql  = "select coalesce(rewardsamount,0) as rewardsamount, coalesce(directrefamount,0) as directrefamount, coalesce(subrefamount,0) as subrefamount from Customer where CustomerEmail = ?";
 		Map<String, Object> answer =  jdbcTemplate.queryForMap(sql,new Object[]{customerEmail});
 		Rewards rewards = new Rewards();
 		rewards.setRewardsAmount(Double.parseDouble(answer.get("rewardsamount").toString()));
